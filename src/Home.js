@@ -1,5 +1,6 @@
 import BlogList from './BlogList';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 const Home = () => {
 
 const [blogs, setBlogs] = useState([
@@ -8,10 +9,22 @@ const [blogs, setBlogs] = useState([
     {title: "OMG 10 ways to die",body:"Yolo third blog",author: "Adam", id:3}
 ])
 
+const handleDelete = (id) => {
+    const newBlogs = blogs.filter(blog => blog.id !== id)
+    setBlogs(newBlogs)
+} 
+
+// Good for fetching data
+useEffect(()=> {
+    console.log('use effect ran')
+},[] // varaibles can be added here as a dependency
+)
+
     return ( 
         <div className="content">
             <h2>Homepage</h2>
-           <BlogList blogs={blogs} title="All Blogs" />
+           <BlogList handleDelete={handleDelete} blogs={blogs} title="All Blogs" />
+           {/* <BlogList blogs={blogs.filter((blog)=> blog["author"] === 'Kegan')} title="Marios Blogs" /> */}
 
         </div>
      );
